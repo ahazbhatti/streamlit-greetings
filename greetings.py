@@ -1,5 +1,6 @@
 import streamlit as st
 from datetime import datetime
+import time
 
 st.set_page_config(
     page_title="Greetings",
@@ -74,8 +75,7 @@ col1, col2, col3 = st.columns(3)
 with col1:
     st.metric(label="Welcome Status", value="Ready ✅")
 
-with col2:
-    st.metric(label="Time", value=datetime.now().strftime("%H:%M"))
+time_placeholder = col2.empty()
 
 with col3:
     st.metric(label="Date", value=datetime.now().strftime("%b %d"))
@@ -86,3 +86,8 @@ st.markdown("""
         <p>Built with ❤️ using Streamlit</p>
     </div>
 """, unsafe_allow_html=True)
+
+# Update the clock continuously
+while True:
+    time_placeholder.metric(label="Time", value=datetime.now().strftime("%H:%M:%S"))
+    time.sleep(1)
